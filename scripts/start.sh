@@ -57,8 +57,12 @@ if [[ "$TEMPLATE_NGINX_HTML" == "1" ]] ; then
   done
 fi
 
+# If owner of files not defined, default to www-data
+if [ -z "$HTML_USER" ]; then
+  HTML_USER=www-data
+fi
 # Set owner of files (needed when mounting from a volume)
-chown -Rf www-data.www-data $PATH_HTML
+chown -Rf $HTML_USER.www-data $PATH_HTML
 
 # Start supervisord and the services configured therein
 /usr/bin/supervisord -n -c /etc/supervisord.conf

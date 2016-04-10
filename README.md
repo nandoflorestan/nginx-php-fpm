@@ -157,6 +157,18 @@ In order to speed up boot time templating is now diabled by default, if you wish
 ### Template anything
 Yes ***ANYTHING***, any variable exposed by a linked container or the **-e** flag lets you template your configuration files. This means you can add redis, mariaDB, memcache or anything you want to your application very easily.
 
+
+### Changing the owner of the website files at startup
+
+By default, the script that runs when the container starts changes the user and group of all the website files to `www-data`. But in a development environment, in which you are mounting that as a volume and changing the website files, you can choose the owner (preferably through the user's numeric ID) by setting this environment variable when running the container:
+
+```
+-e HTML_USER=1000
+```
+
+You can find out the numeric ID of your user by running the command `id <USERNAME>`.
+
+
 ## Logging and Errors
 
 ### Logging
